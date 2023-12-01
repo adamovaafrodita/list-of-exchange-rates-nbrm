@@ -1,0 +1,35 @@
+<div class="search-container">
+  <select [(ngModel)]="selectedSearchColumn" class="search-select">
+    <option value="">Select Column</option>
+    <option value="DrzavaAng">Counrty</option>
+    <option value="Valuta">Currency</option>
+    <option value="Sreden">MiddleRate MKD</option>
+  </select>
+
+  <ng-container *ngIf="selectedSearchColumn">
+    <input
+      type="text"
+      [(ngModel)]="searchTerm"
+      placeholder="Search..."
+      class="search-input"
+    />
+    <button
+      (click)="searchByColumn(selectedSearchColumn, searchTerm)"
+      class="search-button"
+    >
+      Search
+    </button>
+    <button (click)="resetSearch()" class="reset-button">Reset</button>
+  </ng-container>
+
+  <ng-container *ngIf="!selectedSearchColumn">
+    <p>
+      *To filter the data effectively, please select one of the available
+      options from the dropdown menu.
+    </p>
+  </ng-container>
+</div>
+
+<div *ngIf="noResultsMessage" class="error-msg">
+  {{ noResultsMessage }}
+</div>

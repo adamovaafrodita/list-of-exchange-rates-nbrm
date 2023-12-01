@@ -1,0 +1,63 @@
+<div class="table-wrapper">
+  <div class="overlay" *ngIf="isPopupVisible"></div>
+  <table id="dataTable">
+    <thead>
+      <tr>
+        <th (click)="sortData('DrzavaAng')" class="sortable">
+          <span>Counrty</span>
+          <span *ngIf="sortOrders['DrzavaAng'] === 'asc'" class="arrow hide"
+            >&uarr;</span
+          >
+          <span *ngIf="sortOrders['DrzavaAng'] === 'desc'" class="arrow hide"
+            >&darr;</span
+          >
+          <span class="sort-indicator">&#x21c5;</span>
+        </th>
+        <th (click)="sortData('Valuta')" class="sortable">
+          <span>Currency</span>
+          <span *ngIf="sortOrders['Valuta'] === 'asc'" class="arrow hide"
+            >&uarr;</span
+          >
+          <span *ngIf="sortOrders['Valuta'] === 'desc'" class="arrow hide"
+            >&darr;</span
+          >
+          <span class="sort-indicator">&#x21c5;</span>
+        </th>
+        <th (click)="sortData('Sreden')" class="sortable">
+          <span>MiddleRate MKD</span>
+          <span *ngIf="sortOrders['Sreden'] === 'asc'" class="arrow hide"
+            >&uarr;</span
+          >
+          <span *ngIf="sortOrders['Sreden'] === 'desc'" class="arrow hide"
+            >&darr;</span
+          >
+          <span class="sort-indicator">&#x21c5;</span>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <ng-container *ngIf="isFiltered; else unfilteredData">
+        <tr
+          *ngFor="let data of filteredData; let i = index"
+          (click)="showPopup(data, i)"
+        >
+          <!-- Table rows with filtered data -->
+          <td>{{ data.DrzavaAng }}</td>
+          <td>{{ data.Valuta }}</td>
+          <td>{{ data.Sreden }}</td>
+        </tr>
+      </ng-container>
+      <ng-template #unfilteredData>
+        <tr
+          *ngFor="let data of nbrmData; let i = index"
+          (click)="showPopup(data, i)"
+        >
+          <!-- Table rows with original data -->
+          <td>{{ data.DrzavaAng }}</td>
+          <td>{{ data.Valuta }}</td>
+          <td>{{ data.Sreden }}</td>
+        </tr>
+      </ng-template>
+    </tbody>
+  </table>
+</div>

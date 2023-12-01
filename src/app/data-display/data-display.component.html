@@ -1,0 +1,38 @@
+<div class="date-picker">
+  <input
+    type="text"
+    [(ngModel)]="startDate"
+    placeholder="Start Date (dd.MM.yyyy)"
+    class="date-input"
+  />
+  <input
+    type="text"
+    [(ngModel)]="endDate"
+    placeholder="End Date (dd.MM.yyyy)"
+    class="date-input"
+  />
+  <button (click)="fetchData()" class="fetch-button">Fetch Data</button>
+</div>
+<ng-container *ngIf="isfetched">
+  <app-search
+    [nbrmData]="nbrmData"
+    (isFilteredChange)="receiveIsFilteredValue($event)"
+    (filteredDataChange)="receiveFilteredData($event)"
+  ></app-search>
+
+  <app-sorting
+    [nbrmData]="nbrmData"
+    [isFiltered]="isFilteredValue"
+    [filteredData]="filteredDataValue"
+    (showPopupEvent)="handleShowPopup($event)"
+    [isPopupVisible]="isPopupVisibleValue"
+  ></app-sorting>
+
+  <app-popup
+    [nbrmData]="nbrmData"
+    [isFiltered]="isFilteredValue"
+    [filteredData]="filteredDataValue"
+    #popupComponent
+    (isPopupVisibleChange)="receiveIsPopupVisibleValue($event)"
+  ></app-popup>
+</ng-container>
